@@ -1,130 +1,316 @@
 ---
-title       : Insert the chapter title here
-description : Insert the chapter description here
-attachments :
-  slides_link : https://s3.amazonaws.com/assets.datacamp.com/course/teach/slides_example.pdf
+title       : Getting Started With Plotly
+description : This chapter will introduce you to plotly and how you can use R and plotly together to create stunning data visualizations.
 
----
-## A really bad movie
+--- type:NormalExercise lang:r xp:100 skills:1 key:7dc7c83d61
+## Let's get started
 
-```yaml
-type: MultipleChoiceExercise
-lang: r
-xp: 50
-skills: 1
-key: 017eaa210c
-```
+Meet Plotly. 
 
-Have a look at the plot that showed up in the viewer to the right. Which type of movie has the worst rating assigned to it?
+[Plotly](https://plot.ly/) provides online graphing, analytics, and statistics tools. Using their technology anyone, including yourself, can make beautiful, interactive web-based graphs.
 
-`@instructions`
-- Adventure
-- Action
-- Animation
-- Comedy
+In this short tutorial, you'll be introduced to the [R package for plotly](https://www.rdocumentation.org/packages/plotly/versions/4.5.2?), a high-level interface to the open source JavaScript graphing library plotly.js. 
 
-`@hint`
-Have a look at the plot. Which color does the point with the lowest rating have?
+Plotly for R runs locally in your web browser or in the R Studio viewer. You can publish your charts to the web with [plotly's web service](https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html). 
+Let's get started by loading the `plotly` library. 
 
-`@pre_exercise_code`
+*** =instructions
+- Load the `plotly` R package.
+- Click *Submit Answer* to run the code
+
+*** =hint
+- Use `library()` to load the plotly R package.
+
+*** =pre_exercise_code
 ```{r}
-# The pre exercise code runs code to initialize the user's workspace.
-# You can use it to load packages, initialize datasets and draw a plot in the viewer
 
-movies <- read.csv("http://s3.amazonaws.com/assets.datacamp.com/course/introduction_to_r/movies.csv")
-
-library(ggplot2)
-
-ggplot(movies, aes(x = runtime, y = rating, col = genre)) + geom_point()
 ```
 
-`@sct`
+*** =sample_code
 ```{r}
-# SCT written with testwhat: https://github.com/datacamp/testwhat/wiki
+# load the `plotly` package
 
-msg_bad <- "That is not correct!"
-msg_success <- "Exactly! There seems to be a very bad action movie in the dataset."
-test_mc(correct = 2, feedback_msgs = c(msg_bad, msg_success, msg_bad, msg_bad))
+
+# This will create your very first plotly visualization
+plot_ly(z = ~volcano)
+
 ```
 
----
-## More movies
-
-```yaml
-type: NormalExercise
-lang: r
-xp: 100
-skills: 1
-key: eb216962c2
-```
-
-In the previous exercise, you saw a dataset about movies. In this exercise, we'll have a look at yet another dataset about movies!
-
-A dataset with a selection of movies, `movie_selection`, is available in the workspace.
-
-`@instructions`
-- Check out the structure of `movie_selection`.
-- Select movies with a rating of 5 or higher. Assign the result to `good_movies`.
-- Use `plot()` to  plot `good_movies$Run` on the x-axis, `good_movies$Rating` on the y-axis and set `col` to `good_movies$Genre`.
-
-`@hint`
-- Use `str()` for the first instruction.
-- For the second instruction, you should use `...[movie_selection$Rating >= 5, ]`.
-- For the plot, use `plot(x = ..., y = ..., col = ...)`.
-
-`@pre_exercise_code`
+*** =solution
 ```{r}
-# You can also prepare your dataset in a specific way in the pre exercise code
-load(url("https://s3.amazonaws.com/assets.datacamp.com/course/teach/movies.RData"))
-movie_selection <- Movies[Movies$Genre %in% c("action", "animated", "comedy"), c("Genre", "Rating", "Run")]
+# load the `plotly` package
+library(plotly)
 
-# Clean up the environment
-rm(Movies)
-```
-
-`@sample_code`
-```{r}
-# movie_selection is available in your workspace
-
-# Check out the structure of movie_selection
-
-
-# Select movies that have a rating of 5 or higher: good_movies
-
-
-# Plot Run (i.e. run time) on the x axis, Rating on the y axis, and set the color using Genre
+# This will create your very first plotly visualization
+plot_ly(z = ~volcano)
 
 ```
 
-`@solution`
+*** =sct
 ```{r}
-# movie_selection is available in your workspace
+test_library_function("plotly")
 
-# Check out the structure of movie_selection
-str(movie_selection)
-
-# Select movies that have a rating of 5 or higher: good_movies
-good_movies <- movie_selection[movie_selection$Rating >= 5, ]
-
-# Plot Run (i.e. run time) on the x axis, Rating on the y axis, and set the color using Genre
-plot(good_movies$Run, good_movies$Rating, col = good_movies$Genre)
-```
-
-`@sct`
-```{r}
-# SCT written with testwhat: https://github.com/datacamp/testwhat/wiki
-
-test_function("str", args = "object",
-              not_called_msg = "You didn't call `str()`!",
-              incorrect_msg = "You didn't call `str(object = ...)` with the correct argument, `object`.")
-
-test_object("good_movies")
-
-test_function("plot", args = "x")
-test_function("plot", args = "y")
-test_function("plot", args = "col")
+msg <- "You don't have to change the [`plot_ly`](https://www.rdocumentation.org/packages/plotly/versions/4.5.2/topics/plotly) command, it was predefined for you."
+test_function("plot_ly", args = "z", index = 1, incorrect_msg = msg)
 
 test_error()
+success_msg("That was not that hard. Now it is time to create your very own plot.")
 
-success_msg("Good work!")
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:804e39053c
+## Plotly diamonds are forever
+
+You'll use several datasets throughout the tutorial to showcase the power of plotly. In the next exercises you will make use of the [`diamond`](https://www.rdocumentation.org/packages/ggplot2/versions/2.1.0/topics/diamonds) dataset. A dataset containing the prices and other attributes of 1000 diamonds. 
+
+<center><img src="http://www.picgifs.com/glitter-gifs/d/diamonds/animaatjes-diamonds-61528.gif" alt="Diamonds" height="100px"></center>
+
+Don't forget: 
+
+You're encouraged to think about how the examples can be applied to your own data-sets! Also, Plotly graphs are interactive. So make sure to experiment a bit with your plot: click-drag to zoom, shift-click to pan, double-click to autoscale.
+
+*** =instructions
+- `plotly` has already been loaded for you. 
+- Take a look at the first `plot_ly()` graph. It plots the `carat` (FYI: the carat is a unit of mass. Hence it gives info on the weight of a diamond,) against the `price` (in US dollars). You don't have to change anything to this command. Tip: note the `~` syntax. 
+- In the second call of `plot_ly()`, change the `color` argument. The color should be dependent on the weight of the diamond.
+- In the third call of `plot_ly()`, change the `size` argument as well. The size should be dependent on the weight of the diamond.
+
+*** =hint
+- The second argument of the second `plot_ly()` should contain argument `color` set to `carat`. 
+
+*** =pre_exercise_code
+```{r}
+library(plotly)
+library(ggplot2)
+diamonds <- diamonds[sample(nrow(diamonds), 1000), ]
+```
+
+*** =sample_code
+```{r}
+# The diamonds dataset
+str(diamonds)
+
+# A firs scatterplot has been made for you
+plot_ly(diamonds, x = ~carat, y = ~price)
+
+# Replace ___ with the correct vector
+plot_ly(diamonds, x = ~carat, y = ~price, color = ~___)
+        
+# Replace ___ with the correct vector
+plot_ly(diamonds, x = ~carat, y = ~price, color = ~___, size = ~___)
+```
+
+*** =solution
+```{r}
+# The diamonds dataset
+str(diamonds)
+
+# A firs scatterplot has been made for you
+plot_ly(diamonds, x = ~carat, y = ~price)
+
+# Replace ___ with the correct vector
+plot_ly(diamonds, x = ~carat, y = ~price, color = ~carat)
+        
+# Replace ___ with the correct vector
+plot_ly(diamonds, x = ~carat, y = ~price, color = ~carat, size = ~carat)
+```
+
+*** =sct
+```{r}
+# SCT written with testwhat: https://github.com/datacamp/testwhat/wiki
+
+# Test str function
+msg <-  "Call [`str()`](http://www.rdocumentation.org/packages/utils/functions/str) with the `diamonds` dataset as an argument."
+test_function("str", "object", not_called_msg = msg, incorrect_msg = msg)
+
+# Test first plotly function
+test_function("plot_ly", args = c("data","x","y"),
+              not_called_msg = "Have you used `plot_ly()` 3 times for 3 different graphs?",
+              index = 1,
+              args_not_specified = c("Have you correctly specified that `data` should be `diamonds`?",
+                                "Have you correctly specified that `x` should be `carat`?",
+                                "Have you correctly specified that `y` should be `price`?"))
+
+# Test second plotly function
+test_function("plot_ly", args = c("data","x","y","color"),
+              not_called_msg = "Have you used `plot_ly()` 3 times for 3 different graphs?",
+              index = 2,
+              args_not_specified = c("Have you correctly specified that `data` should be `diamonds`?",
+                                "Have you correctly specified that `x` should be `carat`?",
+                                "Have you correctly specified that `y` should be `price`?",
+                                "Have you correctly specified that `color` should depend on `carat`?"))
+
+# Test third plotly function
+test_function("plot_ly", args = c("data","x","y","color","size"),
+              not_called_msg = "Have you used `plot_ly()` 3 times for 3 different graphs?",
+              index = 3,
+              args_not_specified = c("Have you correctly specified that `data` should be `diamonds`?",
+                                "Have you correctly specified that `x` should be `carat`?",
+                                "Have you correctly specified that `y` should be `price`?",
+                                "Have you correctly specified that `color` should depend on `carat`?",
+                                "Have you correctly specified that `size` should depend on `carat`?"))
+                                
+success_msg("Wow. Those are some nice looking plots! You are a natural.")
+
+```
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:97ba0a444c
+## The interactive bar chart
+
+You've likely encountered a bar chart before. With plotly you can now turn those dull, basic bar charts into interactive masterpieces!
+
+You will work again with the `diamonds` dataset. The goal is to create a bar chart that buckets our diamonds based on quality of the `cut`. Next, for each cut, you want to see how many diamonds there are for each `clarity` variable.  
+
+Exciting!
+
+*** =instructions
+- The `plotly` and `dplyr` package are already loaded in.
+- Calculate the number of diamonds for each cut/clarity combination using the `count()` function from the [`dplyr`]((https://www.rdocumentation.org/packages/dplyr/versions/0.5.0)) package. Assign the result to `diamonds_bucket`. 
+- Create a chart of type `"bar"`. The `color` of the bar depends on the `clarity` of the diamond. Bucket your diamonds by the `cut` over the x-axis. 
+
+
+*** =hint
+- Calculate the numbers of diamonds for each cut/clarity using `count(cut, clarity)`. (Not familiar with dplyr? Check [our course](https://www.datacamp.com/courses/dplyr-data-manipulation-r-tutorial)).
+- Indicate you want a bar chart in plotly using `type= "bar"`
+
+*** =pre_exercise_code
+```{r}
+library(plotly)
+library(ggplot2)
+library(dplyr)
+diamonds <- diamonds[sample(nrow(diamonds), 1000), ]
+```
+
+*** =sample_code
+```{r}
+
+# Calculate the numbers of diamonds for each cut<->clarity combination
+diamonds_bucket <- diamonds %>% count(___, ___)
+
+# Replace ___ with the correct vector
+plot_ly(diamonds_bucket, x = ___, y = ~n, type = ___, color = ___) 
+
+```
+
+*** =solution
+```{r}
+
+# Calculate the numbers of diamonds for each cut<->clarity combination
+diamonds_bucket <- diamonds %>% count(cut, clarity)
+
+# Replace ___ with the correct vector
+plot_ly(diamonds_bucket, x = ~cut, y = ~n, type = "bar", color = ~clarity) 
+
+```
+
+*** =sct
+```{r}
+# SCT written with testwhat: https://github.com/datacamp/testwhat/wiki
+
+# Test dplyr function
+test_error()       
+
+test_function_result("count", 
+                     incorrect_msg = paste("Have you correctly performed the count operation?",
+                                           "Make sure this is the `dplyr` verb you call on `diamonds`."))
+
+
+# Test first plotly function
+test_function("plot_ly", args = c("data","x","y","type","color"),
+              not_called_msg = "Have you used `plot_ly()` to create a bar chart?",
+              index = 1,
+              args_not_specified = c("Have you correctly specified that `data` should be `diamonds_bucket`?",
+                                "Have you correctly specified that `x` should be `cut`?",
+                                "Have you correctly specified that `y` should be `n`?",
+                                "Have you correctly specified that `type` should be `bar`?",
+                                "Have you correctly specified that `color` should be `clarity`?"
+                                ))
+                                
+success_msg("Well done. Time to move from the bar to the box...")
+
+```
+--- type:NormalExercise lang:r xp:100 skills:1 key:126082cf3d
+## From the bar to the box: the box plot
+
+In the final exercise of this chapter, you will make an interactive box plot in R. 
+
+Using plotly, you can create box plots that are grouped, colored, and that display the underlying data distribution. The code to create a simple box plot using plotly is provided on your right. 
+
+Note how you use `type= "box"` in the function `plot_ly()` to create a box plot. Make sure to run the code (`plotly` is already loaded in). 
+ 
+*** =instructions
+- Create a second, more fancy, box plot using `diamonds`. The y-axis should represent the `price`. The color should depend on the `cut`.
+- Create a third box plot where you bucket the diamonds not only by `cut` but also by `clarity`. The color should depend on the `clarity` of the diamond.  
+
+
+*** =hint
+- For the third box plot the `x` argument should depend on the `cut`.
+
+*** =pre_exercise_code
+```{r}
+library(plotly)
+library(ggplot2)
+library(dplyr)
+diamonds <- diamonds[sample(nrow(diamonds), 1000), ]
+```
+
+*** =sample_code
+```{r}
+
+# The Non Fancy Box Plot
+plot_ly(y = ~rnorm(50), type = "box")
+
+# The Fancy Box Plot
+plot_ly(diamonds, y = ___, color = ___, type = ___)
+
+# The Super Fancy Box Plot
+plot_ly(diamonds, x = ___, y = ___, color = ___, type = ___) %>%
+  layout(boxmode = "group")
+  
+```
+
+*** =solution
+```{r}
+
+# The Non Fancy Box Plot
+plot_ly(y = ~rnorm(50), type = "box")
+
+# The Fancy Box Plot
+plot_ly(diamonds, y = ~price, color = ~cut, type = "box")
+
+# The Super Fancy Box Plot
+plot_ly(diamonds, x = ~cut, y = ~price, color = ~clarity, type = "box") %>%
+  layout(boxmode = "group")
+  
+```
+
+*** =sct
+```{r}
+# Test first plotly function
+test_function("plot_ly", index = 1, args = c("y","type"), incorrect_msg = c("You don't have to change the [`plot_ly`](https://www.rdocumentation.org/packages/plotly/versions/4.5.2/topics/plotly) command, it was predefined for you.","You don't have to change the [`plot_ly`](https://www.rdocumentation.org/packages/plotly/versions/4.5.2/topics/plotly) command, it was predefined for you."))
+
+# Test second plotly function
+test_function("plot_ly", args = c("data","y","color","type"),
+              not_called_msg = "Have you used `plot_ly()` 3 times for 3 different graphs?",
+              index = 2,
+              args_not_specified = c("Have you correctly specified that `data` should be `diamonds`?",
+                                "Have you correctly specified that `y` should be `price`?",
+                                "Have you correctly specified that `color` should depend on `cut`?",
+                                "Make sure to let plotly know you need a plot of type box?"))
+                                
+# Test third plotly function
+test_function("plot_ly", args = c("data","x","y","color","type"),
+              not_called_msg = "Have you used `plot_ly()` 3 times for 3 different graphs?",
+              index = 3,
+              args_not_specified = c("Have you correctly specified that `data` should be `diamonds`?",
+                                "Have you correctly specified that `x` should be `cut`?",
+                                "Have you correctly specified that `y` should be `price`?",
+                                "Have you correctly specified that `color` should depend on `clarity`?",
+                                "Make sure to let plotly know you need a plot of type box?"))
+
+test_function("layout", args = c("boxmode"),
+                     incorrect_msg = paste("No need to change `layout()`!"))
+                                           
+success_msg("You really aced this chapter. Time to level up.")
+
 ```
