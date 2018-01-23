@@ -119,19 +119,22 @@ test_library_function("tidyr")
 ex() %>%
   check_function("na.omit", not_called_msg = "Make sure to use `na.omit` to clearn the data")
 
+success_msg("Great Job!! Notice the data table has been organized and the glimpse command shows you the column names and the first couple of values. Look how the table has been condensed into Indicator and Value columns.")
 ```
 
 
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:172ffa9438
 ## Dive into the data
-Use the code window to examine and rehape the data to answer the question
+Use the code window to examine and rehape the data to answer the question.
 
-The data has been read in and loaded into the variable GatheredStudentData.
+The data has been read in and loaded into the variable `GatheredStudentData`.
 
-Use a combination of the following commands to examine the data and answer the question.
+Run the following command and examine the output.
 
 `GatheredStudentData %>% filter(Indicator=="ELA06") %>% arrange(desc(Value))`
+
+Modify your command to answer the question below. Take note of the Indicator and Value columns.
 
 Which student had the lowest MAT07 score? 
 *** =instructions
