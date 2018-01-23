@@ -126,7 +126,7 @@ success_msg("Great Job!! Notice the data table has been organized and the glimps
 
 --- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:172ffa9438
 ## Dive into the data
-Use the code window to examine and rehape the data to answer the question.
+Use the console window to examine the data to answer the question.
 
 The data has been read in and loaded into the variable `GatheredStudentData`.
 
@@ -134,13 +134,14 @@ Run the following command and examine the output.
 
 `GatheredStudentData %>% filter(Indicator=="ELA06") %>% arrange(desc(Value))`
 
-Modify your command to answer the question below. Take note of the Indicator and Value columns.
+Take note of the Indicator and Value columns.
+Modify your command to answer the question below. 
 
 Which student had the lowest MAT07 score? 
 *** =instructions
-- 516223     Peter      King
 - 990079      Erma     Nunez
 - 364560     Bryan    Chavez 
+- 516223     Peter      King
 - 554694      Eula    Ingram 
 
 
@@ -166,19 +167,20 @@ GatheredStudentData <- GatheredStudentData %>% na.omit()
 
 *** =sct
 ```{r}
-test_mc(1)
+test_mc(2)
 ```
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:305990cdbc
 ## Create table of data for the sheet or plot
-You are going to create a table of data that will be used in the next exersise to create visuals.
+You are going to create a table of data that will be used in the next exercise to create visuals.
 - Filter the data to include only the students in section 1
 - Find all available data for those students
 - Filter the data to include only PARCC assessments (ELA??,MAT??, ALG01, ALG02, GEO01)
-- Spead the data into a table
+- Spread the data into a table
 
-Data is loaded from previous exercise into GatheredStudentData
+Data is loaded from previous exercise into `GatheredStudentData`
+
 *** =instructions
 
 *** =hint
