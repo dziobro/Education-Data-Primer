@@ -176,7 +176,7 @@ test_mc(2)
 You are going to create a table of data that will be used in the next exercise to create visuals.
 - Filter the data to include only the students in section 1
 - Find all available data for those students
-- Filter the data to include only math PARCC assessments (MAT??, ALG01, ALG02, GEO01)
+- Change the code to Filter only math PARCC assessments (MAT??, ALG01, ALG02, GEO01)
 - Spread the data into a table
 
 Data is loaded from previous exercise into `GatheredStudentData`
@@ -218,7 +218,7 @@ FilteredStudentDatainSection <- AllStudentDataInSection %>%
 
 #Spread Data Back out
 SpreadFilteredData <- FilteredStudentDatainSection %>%
-    spread(Indicator,Value)
+    ______(Indicator,Value)
 
 
 ```
