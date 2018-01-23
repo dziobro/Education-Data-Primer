@@ -273,7 +273,8 @@ test_object("SpreadFilteredData",
  `SpreadFilteredData` is loaded from the previous exercise.
 
 *** =instructions
-- Examine the existing code add a trace for the missing assement (ALG02).
+Examine the existing code.
+- Add a trace for the missing assement (ALG02).
 - Run the code to create the graph. 
 
 After creating the graph explore the interactivity on the graph.
