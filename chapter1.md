@@ -61,6 +61,10 @@ In tidy data:
 
 We want to clean up our student data.
 
+You can pass data into a new variable using '<-'
+
+' %>% gather(key = "key", value = "value",...)'
+
 
 *** =instructions
 ## Let's Go!
@@ -68,7 +72,7 @@ We want to clean up our student data.
 The student data was loaded into a table `StudentData` from the pervious exercise.
 - load the tidyr libary.
 - Gather the data into a new variable `GatheredStudentData` 
-- Remove NA's
+- Remove NA's 'na.omit()'
 
 
 *** =hint
@@ -86,7 +90,7 @@ StudentData<-read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/co
 #Load the tidyr library
 
 #Gather the data
-GatheredStudentData <-StudentData %>% gather(Indicator,Value, -SID,-First,-Last)
+_______________ <-StudentData %>% gather(Indicator,Value, -SID,-First,-Last)
 
 # Remove NA's
 GatheredStudentData <- GatheredStudentData %>% _____
