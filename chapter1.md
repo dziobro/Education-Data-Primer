@@ -9,6 +9,7 @@ In this lesson we will look at dplyr which is an R library that will allow us to
 In this example we will use a Web Based environment to simplify getting started.
 All examples can be run locally in R with R studio.
 
+In R `library()` is used to load packages into the environment. For example `library(plot_ly)' would load a package that helps use visualize data.
 
 If you highlight a line of code you can run a single line and see the results.
 
