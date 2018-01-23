@@ -248,7 +248,13 @@ SpreadFilteredData <- FilteredStudentDatainSection %>%
 
 *** =sct
 ```{r}
-
+test_object("SpreadFilteredData", 
+            undefined_msg = "You need to create SpreadFilteredData",
+            incorrect_msg = "SpreadFilteredData is not correct. Check your filter.") 
+test_object("AllStudentDataInSection", 
+            undefined_msg = "You need to create AllStudentDataInSection",
+            incorrect_msg = "AllStudentDataInSection is not correct. Check your filter for the section.") 
+            
 ```
 
 
