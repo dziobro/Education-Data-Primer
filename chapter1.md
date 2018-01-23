@@ -243,57 +243,7 @@ SpreadFilteredData <- FilteredStudentDatainSection %>%
 ```{r}
 
 ```
---- type:NormalExercise lang:r xp:100 skills:1 key:804e39053c
-[Plotly](https://plot.ly/) provides online graphing, analytics, and statistics tools. Using their technology anyone, including yourself, can make beautiful, interactive web-based graphs.
 
-In this short tutorial, you'll be introduced to the [R package for plotly](https://www.rdocumentation.org/packages/plotly/versions/4.5.2?), a high-level interface to the open source JavaScript graphing library plotly.js. 
-
-Plotly for R runs locally in your web browser or in the R Studio viewer. You can publish your charts to the web with [plotly's web service](https://cpsievert.github.io/plotly_book/plot-ly-for-collaboration.html). 
-Let's get started by loading the `plotly` library. 
-
-*** =instructions
-- Load the `plotly` R package.
-- Click *Submit Answer* to run the code
-
-*** =hint
-- Use `library()` to load the plotly R package.
-
-*** =pre_exercise_code
-```{r}
-
-```
-
-*** =sample_code
-```{r}
-# load the `plotly` package
-
-
-# This will create your very first plotly visualization
-plot_ly(z = ~volcano)
-
-```
-
-*** =solution
-```{r}
-# load the `plotly` package
-library(plotly)
-
-# This will create your very first plotly visualization
-plot_ly(z = ~volcano)
-
-```
-
-*** =sct
-```{r}
-test_library_function("plotly")
-
-msg <- "You don't have to change the [`plot_ly`](https://www.rdocumentation.org/packages/plotly/versions/4.5.2/topics/plotly) command, it was predefined for you."
-test_function("plot_ly", args = "z", index = 1, incorrect_msg = msg)
-
-test_error()
-success_msg("That was not that hard. Now it is time to create your very own plot.")
-
-```
 
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:153a069111
@@ -351,7 +301,8 @@ library(plotly)
 
 plot_ly(SpreadFilteredData,y=~ALG01,name="ALG01",type="bar",x=~paste(Last,First,sep=", ")) %>%
  add_trace(y=~GEO01,name="Geo") %>%
- add_trace(___________________)
+ add_trace(___________________) %>%
+ layout(yaxis = list("title"="Score",range=c(650,850)))
 ```
 
 *** =solution
@@ -360,7 +311,76 @@ library(plotly)
 
 plot_ly(SpreadFilteredData,y=~ALG01,name="ALG01",type="bar",x=~paste(Last,First,sep=", ")) %>%
  add_trace(y=~GEO01,name="Geo") %>%
- add_trace(y=~ALG02,name="ALG02")
+ add_trace(y=~ALG02,name="ALG02")%>%
+ layout(yaxis = list("title"="Score",range=c(650,850)))
+```
+
+*** =sct
+```{r}
+
+```
+
+
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:deeec9af89
+## Summerize Student Data
+Here is a more complex example based on the data.
+- Run the code
+- Hover over the results and explore by zooming and turning on and off traces
+
+*** =instructions
+
+*** =hint
+
+*** =pre_exercise_code
+```{r}
+#Load the tidyr and dplyr library
+library(tidyr)
+library(dplyr)
+
+#READ AND CLEAN
+#Read in the Student Data
+StudentData<-read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_1959/datasets/SampleClassData.csv")
+#Gather the data
+GatheredStudentData <-StudentData %>% gather(Indicator,Value, -SID,-First,-Last)
+# Remove NA's
+GatheredStudentData <- GatheredStudentData %>% na.omit()
+# Generate a List of the SID's we are looking for
+FilteredStudents <- GatheredStudentData %>% 
+    filter(Indicator=="X...SectionID",Value=="1") %>% #Filter Students in Section 1
+    select(SID) #Select only the SID field
+
+# Find all Available data on Students
+AllStudentDataInSection <- FilteredStudents %>% 
+    left_join(GatheredStudentData,by="SID") #Links two tables all records from Filtered Students and those from GatheredStudentData where the SID matches
+    
+# Filter Data for only PARCC assessments
+FilteredStudentDatainSection <- AllStudentDataInSection %>%
+    filter(Indicator %in% c("ELA02","ELA03","ELA04","ELA05","ELA06","ELA07","ELA08","ELA09","ELA10","ELA11",
+                            "MAT02","MAT03","MAT04","MAT05","MAT06","MAT07","MAT08","ALG01","GEO01","ALG02"))         
+
+#Spread Data Back out
+SpreadFilteredData <- FilteredStudentDatainSection %>%
+    spread(Indicator,Value)
+
+```
+
+*** =sample_code
+```{r}
+library(plotly)
+
+plot_ly(SpreadFilteredData,x=~ALG01,name="ALG01",type="box",jitter = 0.3, boxmean='sd',Text=~paste(Last,First,sep=", "),y="ALG01") %>%
+ add_markers(x=~ALG01,y="ALG01",name="ALG01") %>%
+ add_trace(x=~GEO01,name="GEO01",y="GEO01") %>%
+ add_markers(x=~GEO01,y="GEO01",name="GEO01") %>%
+ add_trace(x=~ALG02,name="ALG02",y="ALG02")%>%
+ add_markers(x=~ALG02,y="ALG02",name="ALG02") %>%
+ layout(xaxis = list("title"="Score",range=c(650,850))) 
+```
+
+*** =solution
+```{r}
+
 ```
 
 *** =sct
