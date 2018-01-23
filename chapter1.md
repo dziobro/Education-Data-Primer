@@ -65,9 +65,9 @@ We want to clean up our student data.
 *** =instructions
 ## Let's Go!
 
-The student data is loaded into StudentData from the pervious exercise.
+The student data was loaded into a table `StudentData` from the pervious exercise.
 - load the tidyr libary.
-- Gather the data into a new variable GatheredStudentData 
+- Gather the data into a new variable `GatheredStudentData` 
 - Remove NA's
 
 
