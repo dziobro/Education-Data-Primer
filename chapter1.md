@@ -227,7 +227,7 @@ FilteredStudentDatainSection <- AllStudentDataInSection %>%
 SpreadFilteredData <- FilteredStudentDatainSection %>%
     ______(Indicator,Value)
 
-
+SpreadFilteredData
 ```
 
 *** =solution
@@ -249,7 +249,7 @@ FilteredStudentDatainSection <- AllStudentDataInSection %>%
 SpreadFilteredData <- FilteredStudentDatainSection %>%
     spread(Indicator,Value)
 
-
+SpreadFilteredData
 ```
 
 *** =sct
@@ -382,6 +382,8 @@ FilteredStudentDatainSection <- AllStudentDataInSection %>%
 #Spread Data Back out
 SpreadFilteredData <- FilteredStudentDatainSection %>%
     spread(Indicator,Value)
+    
+
 
 ```
 
