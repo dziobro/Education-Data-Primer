@@ -85,19 +85,157 @@ StudentData<-read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/co
 #Load the tidyr library
 
 #Gather the data
-GatheredStudentData <-StudentData %>% gather(Indicator,Score, -SID,-First,-Last)
+GatheredStudentData <-StudentData %>% gather(Indicator,Value, -SID,-First,-Last)
+
+# Remove NA's
+GatheredStudentData <- GatheredStudentData %>% _____
+
+# Dump the student data
+glimpse(GatheredStudentData)
+
+```
+
+*** =solution
+```{r}
+#Load the tidyr library
+library(tidyr)
+#Gather the data
+GatheredStudentData <-StudentData %>% gather(Indicator,Value, -SID,-First,-Last)
 
 # Remove NA's
 GatheredStudentData <- GatheredStudentData %>% na.omit()
 
 # Dump the student data
-glimpse(GatherdStudentData)
+glimpse(GatheredStudentData)
 
-#
+```
+
+*** =sct
+```{r}
+test_library_function("tidyr")
+
+ex() %>%
+  check_function("na.omit", not_called_msg = "Make sure to use `na.omit` to clearn the data")
+
+```
+
+
+
+--- type:MultipleChoiceExercise lang:r xp:50 skills:1 key:172ffa9438
+## Dive into the data
+Use the code window to examine and rehape the data to answer the question
+
+The data has been read in and loaded into the variable GatheredStudentData.
+
+Use a combination of the following commands to examine the data and answer the question.
+
+`GatheredStudentData %>% filter(Indicator=="ELA06") %>% arrange(desc(Value))`
+
+Which student had the lowest MAT07 score? 
+*** =instructions
+- 516223     Peter      King
+- 990079      Erma     Nunez
+- 364560     Bryan    Chavez 
+- 554694      Eula    Ingram 
+
+
+*** =hint
+Use a combination of the following commands to examine the data and answer the question.
+
+GatheredStudentData %>% filter(Indicator=="MAT06) %>% arrange(desc(Value))
+*** =pre_exercise_code
+```{r}
+#Load the tidyr and dplyr library
+library(tidyr)
+library(dplyr)
+
+#READ AND CLEAN
+#Read in the Student Data
+StudentData<-read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_1959/datasets/SampleClassData.csv")
+#Gather the data
+GatheredStudentData <-StudentData %>% gather(Indicator,Value, -SID,-First,-Last)
+# Remove NA's
+GatheredStudentData <- GatheredStudentData %>% na.omit()
+
+```
+
+*** =sct
+```{r}
+test_mc(1)
+```
+
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:305990cdbc
+## Create table of data for the sheet or plot
+You are going to create a table of data that will be used in the next exersise to create visuals.
+- Filter the data to include only the students in section 1
+- Find all available data for those students
+- Filter the data to include only PARCC assessments (ELA??,MAT??, ALG01, ALG02, GEO01)
+- Spead the data into a table
+
+Data is loaded from previous exercise into GatheredStudentData
+*** =instructions
+
+*** =hint
+
+*** =pre_exercise_code
+```{r}
+#Load the tidyr and dplyr library
+library(tidyr)
+library(dplyr)
+
+#READ AND CLEAN
+#Read in the Student Data
+StudentData<-read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_1959/datasets/SampleClassData.csv")
+#Gather the data
+GatheredStudentData <-StudentData %>% gather(Indicator,Value, -SID,-First,-Last)
+# Remove NA's
+GatheredStudentData <- GatheredStudentData %>% na.omit()
+```
+
+*** =sample_code
+```{r}
+# Generate a List of the SID's we are looking for
+FilteredStudents <- GatheredStudentData %>% 
+    filter(Indicator=="X...SectionID",Value=="_____") %>% #Filter Students in Section 1
+    select(SID) #Select only the SID field
+
+# Find all Available data on Students
+AllStudentDataInSection <- FilteredStudents %>%
+    left_join(GatheredStudentData,by="SID") #Links two tables all records from Filtered Students and those from GatheredStudentData where the SID matches
+    
+# Filter Data for only PARCC assessments
+FilteredStudentDatainSection <- AllStudentDataInSection %>%
+    filter(Indicator %in% c("ELA02","ELA03","ELA04","ELA05","ELA06","ELA07","ELA08","ELA09","ELA10","ELA11",
+                            "MAT02","MAT03","MAT04","MAT05","MAT06","MAT07","MAT08","ALG01","GEO01","ALG02"))         
+
+#Spread Data Back out
+SpreadFilteredData <- FilteredStudentDatainSection %>%
+    spread(Indicator,Value)
+
+
 ```
 
 *** =solution
 ```{r}
+# Generate a List of the SID's we are looking for
+FilteredStudents <- GatheredStudentData %>% 
+    filter(Indicator=="X...SectionID",Value=="1") %>% #Filter Students in Section 1
+    select(SID) #Select only the SID field
+
+# Find all Available data on Students
+AllStudentDataInSection <- FilteredStudents %>% 
+    left_join(GatheredStudentData,by="SID") #Links two tables all records from Filtered Students and those from GatheredStudentData where the SID matches
+    
+# Filter Data for only PARCC assessments
+FilteredStudentDatainSection <- AllStudentDataInSection %>%
+    filter(Indicator %in% c("ELA02","ELA03","ELA04","ELA05","ELA06","ELA07","ELA08","ELA09","ELA10","ELA11",
+                            "MAT02","MAT03","MAT04","MAT05","MAT06","MAT07","MAT08","ALG01","GEO01","ALG02"))         
+
+#Spread Data Back out
+SpreadFilteredData <- FilteredStudentDatainSection %>%
+    spread(Indicator,Value)
+
 
 ```
 
@@ -157,6 +295,64 @@ success_msg("That was not that hard. Now it is time to create your very own plot
 
 ```
 
+
+--- type:NormalExercise lang:r xp:100 skills:1 key:153a069111
+## Ploting Student Data
+
+
+*** =instructions
+
+*** =hint
+
+*** =pre_exercise_code
+```{r}
+#Load the tidyr and dplyr library
+library(tidyr)
+library(dplyr)
+
+#READ AND CLEAN
+#Read in the Student Data
+StudentData<-read.csv("http://s3.amazonaws.com/assets.datacamp.com/production/course_1959/datasets/SampleClassData.csv")
+#Gather the data
+GatheredStudentData <-StudentData %>% gather(Indicator,Value, -SID,-First,-Last)
+# Remove NA's
+GatheredStudentData <- GatheredStudentData %>% na.omit()
+# Generate a List of the SID's we are looking for
+FilteredStudents <- GatheredStudentData %>% 
+    filter(Indicator=="X...SectionID",Value=="1") %>% #Filter Students in Section 1
+    select(SID) #Select only the SID field
+
+# Find all Available data on Students
+AllStudentDataInSection <- FilteredStudents %>% 
+    left_join(GatheredStudentData,by="SID") #Links two tables all records from Filtered Students and those from GatheredStudentData where the SID matches
+    
+# Filter Data for only PARCC assessments
+FilteredStudentDatainSection <- AllStudentDataInSection %>%
+    filter(Indicator %in% c("ELA02","ELA03","ELA04","ELA05","ELA06","ELA07","ELA08","ELA09","ELA10","ELA11",
+                            "MAT02","MAT03","MAT04","MAT05","MAT06","MAT07","MAT08","ALG01","GEO01","ALG02"))         
+
+#Spread Data Back out
+SpreadFilteredData <- FilteredStudentDatainSection %>%
+    spread(Indicator,Value)
+
+```
+
+*** =sample_code
+```{r}
+library(plotly)
+plot_ly(SpreadFilteredData,x=~ELA09,y=~ALG02,type="scatter")
+```
+
+*** =solution
+```{r}
+library(plotly)
+plot_ly(SpreadFilteredData,x=~ELA09,y=~ALG02,type="scatter")
+```
+
+*** =sct
+```{r}
+
+```
 --- type:NormalExercise lang:r xp:100 skills:1 key:75463b9466
 ## Plotly diamonds are forever
 
