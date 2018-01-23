@@ -429,6 +429,3 @@ test_function("rangeslider",index = 2)
 test_function("layout",args = c("title","xaxis","yaxis"), args_not_specified = c("Have you correctly specified that `title` should be `Stock Price     Apple`?","Have you correctly specified that `xaxis` should be `list(title = \"Date\")`?","Have you correctly specified that `yaxis` should be `list(title = \"Price\")`?"))
 
 ```
----
-title       : Insert the chapter title here
-description : Insert the chapter description here

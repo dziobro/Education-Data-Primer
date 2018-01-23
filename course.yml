@@ -1,5 +1,19 @@
-title            : Education Data Primer
-description      : This is a primer course to introduce dplyr and plotly
-university       : BHPSNJ
-difficulty_level : 2
-time_needed      : 1 hour
+id: 1959
+title: 'Education Data Analysis Primer: R, dplyr and Plotly'
+author_field: Andrew Ziobro
+instructors:
+- dziobro@bhspsnj.org
+- jfinley@bhpsnj.org
+description: This tutorial is designed to give an introduction to working with student
+  data. R and dplyr will be used to reshape the data. PLotly will show you ways in
+  which to visualize the data.
+university: BHPSNJ
+difficulty_level: 2
+time_needed: 1 hour
+author_bio: Andrew Ziobro is a supervisor of Mathematics and Practical Arts at Berkeley
+  Heights Public Schools <br> James Finley is a supervisor of Science and Arts at
+  Berkeley Heights Public Schools<br>
+from: r-base-prod:27
+datasets:
+  SampleClassData.csv: Sampleclassdata
+  2011_february_us_airport_traffic.csv: 2011 february us airport traffic
