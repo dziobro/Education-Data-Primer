@@ -268,9 +268,9 @@ test_object("SpreadFilteredData",
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:153a069111
 ## Ploting Student Data
- Create a bar plot of the student data showing all highschool math PARCC assessments.
+ Now that we organized our data we can use that data to generate a visualization. 
  
- SpreadFilteredData is loaded from the previous exercise.
+ `SpreadFilteredData` is loaded from the previous exercise.
 
 *** =instructions
  Use the existing code and add a trace for the missing assement. (ALG02)
