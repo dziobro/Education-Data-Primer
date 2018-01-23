@@ -59,16 +59,16 @@ In tidy data:
 - Each observation forms a row.
 - Each type of observational unit forms a table.
 
-We want to 
+We want to clean up our student data.
 
 
 *** =instructions
 ## Let's Go!
 
 The student data is loaded into StudentData from the pervious exercise.
-1) load the tidyr libary.
-2) Gather the data into a new variable GatheredStudentData 
-3) Remove NA's
+- load the tidyr libary.
+- Gather the data into a new variable GatheredStudentData 
+- Remove NA's
 
 
 *** =hint
