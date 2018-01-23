@@ -273,12 +273,13 @@ test_object("SpreadFilteredData",
  `SpreadFilteredData` is loaded from the previous exercise.
 
 *** =instructions
- Use the existing code and add a trace for the missing assement. (ALG02)
- After creating the graph explore the interactivity on the graph.
+- Examine the existing code add a trace for the missing assement (ALG02).
+- Run the code to create the graph. 
+
+After creating the graph explore the interactivity on the graph.
  - Click on a trace.
  - Hover over a bar.
- - Click and drag a window
- - 
+ - Click and drag a window.
 *** =hint
   add_trace(y=~ALG02,name="ALG02")
 
