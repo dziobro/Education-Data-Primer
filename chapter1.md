@@ -298,11 +298,19 @@ success_msg("That was not that hard. Now it is time to create your very own plot
 
 --- type:NormalExercise lang:r xp:100 skills:1 key:153a069111
 ## Ploting Student Data
-
+ Create a bar plot of the student data showing all highschool math PARCC assessments.
+ 
+ SpreadFilteredData is loaded from the previous exercise.
 
 *** =instructions
-
+ Use the existing code and add a trace for the missing assement. (ALG02)
+ After creating the graph explore the interactivity on the graph.
+ - Click on a trace.
+ - Hover over a bar.
+ - Click and drag a window
+ - 
 *** =hint
+  add_trace(y=~ALG02,name="ALG02")
 
 *** =pre_exercise_code
 ```{r}
@@ -340,13 +348,19 @@ SpreadFilteredData <- FilteredStudentDatainSection %>%
 *** =sample_code
 ```{r}
 library(plotly)
-plot_ly(SpreadFilteredData,x=~ELA09,y=~ALG02,type="scatter")
+
+plot_ly(SpreadFilteredData,y=~ALG01,name="ALG01",type="bar",x=~paste(Last,First,sep=", ")) %>%
+ add_trace(y=~GEO01,name="Geo") %>%
+ add_trace(___________________)
 ```
 
 *** =solution
 ```{r}
 library(plotly)
-plot_ly(SpreadFilteredData,x=~ELA09,y=~ALG02,type="scatter")
+
+plot_ly(SpreadFilteredData,y=~ALG01,name="ALG01",type="bar",x=~paste(Last,First,sep=", ")) %>%
+ add_trace(y=~GEO01,name="Geo") %>%
+ add_trace(y=~ALG02,name="ALG02")
 ```
 
 *** =sct
