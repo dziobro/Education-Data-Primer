@@ -61,18 +61,15 @@ In tidy data:
 
 We want to clean up our student data.
 
-You can pass data into a new variable using '<-'
-
-' %>% gather(key = "key", value = "value",...)'
-
+You can pass data into a new variable using `<-` for example `x <- 2`
 
 *** =instructions
 ## Let's Go!
 
-The student data was loaded into a table `StudentData` from the pervious exercise.
-- load the tidyr libary.
+The student data was loaded into a table `StudentData` from the pervious exercise. For this exercise:
+- Load the tidyr libary
 - Gather the data into a new variable `GatheredStudentData` 
-- Remove NA's 'na.omit()'
+- Remove NA's `na.omit()`
 
 
 *** =hint
