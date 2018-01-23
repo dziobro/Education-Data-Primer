@@ -5,10 +5,10 @@ description : This chapter will introduce you to R and dplyr and how to work wit
 --- type:NormalExercise lang:r xp:100 skills:1 key:7dc7c83d61
 ## Let's get started
 
-dplyr is an R library that will allow us to work more efficently with data.
-R and R studio can be downloaded and allow local development of your projects.
-In this example we will use a Web Based enviroment to simplify getting started.
+In this lesson we will look at dplyr which is an R library that will allow us to work more efficiently with data. R and R studio can be downloaded and allow local development of your projects.
+In this example we will use a Web Based environment to simplify getting started.
 All examples can be run locally in R with R studio.
+
 
 If you highlight a line of code you can run a single line and see the results.
 
